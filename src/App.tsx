@@ -76,6 +76,9 @@ function App() {
             </div>
             <div className={'container'}>
                 {todolists.map(el => {
+                    const updateTaskStatus = (id: string, taskId: string, status: boolean) => {
+                        setTasks({...tasks, [id]: tasks[id].map(el => el.id === taskId ? {...el, isDone: status} : el)})
+                    }
                     let filteredTasks = tasks[el.id]
                     if (el.filter === 'active') {
                         filteredTasks = tasks[el.id].filter(el => !el.isDone)
@@ -93,6 +96,7 @@ function App() {
                                       changeTodolistFilter={changeTodolistFilter}
                                       updateTodolistTitle={updateTodolistTitle}
                                       updateTaskTitle={updateTaskTitle}
+                                      updateTaskStatus={updateTaskStatus}
                             />
                         </div>
                     )
