@@ -6,21 +6,27 @@ type PropsType = {
     todolists: TodolistType;
     tasks: TaskType[];
     addTask: (id: string, title: string) => void;
+    removeTodolist: (id: string) => void;
 }
 export const Todolist = (props: PropsType) => {
     const {
         todolists: {title, id},
         tasks,
         addTask,
+        removeTodolist
     } = props
     const addTaskHandler = (title: string) => {
         addTask(id, title);
+    }
+    const removeTodolistHandler = () => {
+        removeTodolist(id)
     }
     return (
         <div className={'todolist'}>
             <div>
                 <h3>
                     {title}
+                    <Button text={'x'} callback={removeTodolistHandler}/>
                 </h3>
                 <div>
                     <AddItemForm onCreateItem={addTaskHandler}/>
