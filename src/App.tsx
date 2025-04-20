@@ -62,6 +62,9 @@ function App() {
     const changeTodolistFilter = (id: string, filter: FilterValuesType) => {
         setTodolists(todolists.map(el => el.id === id ? {...el, filter} : el))
     }
+    const updateTodolistTitle = (id: string, todolistTitle: string) => {
+        todolists.map(el => el.id === id ? {...el, title: todolistTitle} : el)
+    }
     return (
         <div className={'app'}>
             <div>
@@ -85,6 +88,7 @@ function App() {
                                       removeTask={removeTask}
                                       removeTodolist={removeTodolist}
                                       changeTodolistFilter={changeTodolistFilter}
+                                      updateTodolistTitle={updateTodolistTitle}
                             />
                         </div>
                     )
