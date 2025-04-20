@@ -1,4 +1,4 @@
-import {TaskType, TodolistType} from "../App.tsx";
+import {FilterValuesType, TaskType, TodolistType} from "../App.tsx";
 import {AddItemForm} from "./AddItemForm.tsx";
 import {Button} from "./Button.tsx";
 
@@ -7,19 +7,24 @@ type PropsType = {
     tasks: TaskType[];
     addTask: (id: string, title: string) => void;
     removeTodolist: (id: string) => void;
+    changeTodolistFilter: (id: string, filter: FilterValuesType) => void
 }
 export const Todolist = (props: PropsType) => {
     const {
         todolists: {title, id},
         tasks,
         addTask,
-        removeTodolist
+        removeTodolist,
+        changeTodolistFilter,
     } = props
     const addTaskHandler = (title: string) => {
         addTask(id, title);
     }
     const removeTodolistHandler = () => {
         removeTodolist(id)
+    }
+    const changeTodolistFilterHandler = (filter: FilterValuesType) => {
+        changeTodolistFilter(id, filter)
     }
     return (
         <div className={'todolist'}>
@@ -45,12 +50,9 @@ export const Todolist = (props: PropsType) => {
                         }) :
                         <h3>Task list is empty - add new task</h3>}
                     <div>
-                        <Button text={'All'} callback={() => {
-                        }}/>
-                        <Button text={'Active'} callback={() => {
-                        }}/>
-                        <Button text={'Completed'} callback={() => {
-                        }}/>
+                        <Button text={'All'} callback={() => changeTodolistFilterHandler('all')}/>
+                        <Button text={'Active'} callback={() => changeTodolistFilterHandler('active')}/>
+                        <Button text={'Completed'} callback={() => changeTodolistFilterHandler('completed')}/>
                     </div>
                 </div>
             </div>

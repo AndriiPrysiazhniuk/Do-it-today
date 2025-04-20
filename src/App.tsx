@@ -57,6 +57,9 @@ function App() {
     const removeTodolist = (id: string) => {
         setTodolists(todolists.filter(el => el.id !== id))
     }
+    const changeTodolistFilter = (id: string, filter: FilterValuesType) => {
+        setTodolists(todolists.map(el => el.id === id ? {...el, filter} : el))
+    }
     return (
         <div className={'app'}>
             <div>
@@ -65,12 +68,21 @@ function App() {
             </div>
             <div className={'container'}>
                 {todolists.map(el => {
+                    let filteredTasks = tasks[el.id]
+                    if (el.filter === 'active') {
+                        filteredTasks = tasks[el.id].filter(el => !el.isDone)
+                    }
+                    if (el.filter === 'completed') {
+                        filteredTasks = tasks[el.id].filter(el => el.isDone)
+                    }
                     return (
                         <div key={el.id}>
                             <Todolist todolists={el}
                                       addTask={addTask}
-                                      tasks={tasks[el.id]}
-                                      removeTodolist={removeTodolist}/>
+                                      tasks={filteredTasks}
+                                      removeTodolist={removeTodolist}
+                                      changeTodolistFilter={changeTodolistFilter}
+                            />
                         </div>
                     )
                 })}
