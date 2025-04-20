@@ -19,8 +19,8 @@ export type TasksStateType = Record<string, TaskType[]>
 
 function App() {
 
-    let todolistId1 = v1()
-    let todolistId2 = v1()
+    const todolistId1 = v1()
+    const todolistId2 = v1()
     const [todolists, setTodolists] = useState<TodolistType[]>([
         {id: todolistId1, title: 'Todolist 1', filter: 'all'},
         {id: todolistId2, title: 'Todolist 2', filter: 'all'},
