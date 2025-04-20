@@ -6,6 +6,7 @@ type PropsType = {
     todolists: TodolistType;
     tasks: TaskType[];
     addTask: (id: string, title: string) => void;
+    removeTask: (id: string, taskId: string) => void;
     removeTodolist: (id: string) => void;
     changeTodolistFilter: (id: string, filter: FilterValuesType) => void
 }
@@ -14,6 +15,7 @@ export const Todolist = (props: PropsType) => {
         todolists: {title, id},
         tasks,
         addTask,
+        removeTask,
         removeTodolist,
         changeTodolistFilter,
     } = props
@@ -37,13 +39,15 @@ export const Todolist = (props: PropsType) => {
                     <AddItemForm onCreateItem={addTaskHandler}/>
                     {tasks.length !== 0
                         ? tasks.map(el => {
+                            const removeTaskHandler = () => {
+                                removeTask(id, el.id)
+                            }
                             return (
                                 <ul key={el.id}>
                                     <li>
                                         <input type="checkbox" checked={el.isDone}/>
                                         <span>{el.title}</span>
-                                        <Button text={'x'} callback={() => {
-                                        }}/>
+                                        <Button text={'x'} callback={removeTaskHandler}/>
                                     </li>
                                 </ul>
                             )

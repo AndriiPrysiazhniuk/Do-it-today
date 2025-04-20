@@ -38,7 +38,15 @@ function App() {
             {id: v1(), title: 'GraphQL', isDone: false},
         ]
     })
-
+    const removeTask = (id: string, taskId: string) => {
+        setTasks({...tasks, [id]: tasks[id].filter(el => el.id !== taskId)})
+    }
+    const addTask = (id: string, title: string) => {
+        const newTask: TaskType = {
+            id: v1(), title, isDone: false
+        }
+        setTasks({...tasks, [id]: [...tasks[id], newTask]})
+    }
     const addTodolist = (title: string) => {
         const newTodolist: TodolistType = {
             id: v1(),
@@ -47,12 +55,6 @@ function App() {
         }
         setTodolists([newTodolist, ...todolists]);
         setTasks({...tasks, [newTodolist.id]: []});
-    }
-    const addTask = (id: string, title: string) => {
-        const newTask: TaskType = {
-            id: v1(), title, isDone: false
-        }
-        setTasks({...tasks, [id]: [...tasks[id], newTask]})
     }
     const removeTodolist = (id: string) => {
         setTodolists(todolists.filter(el => el.id !== id))
@@ -78,8 +80,9 @@ function App() {
                     return (
                         <div key={el.id}>
                             <Todolist todolists={el}
-                                      addTask={addTask}
                                       tasks={filteredTasks}
+                                      addTask={addTask}
+                                      removeTask={removeTask}
                                       removeTodolist={removeTodolist}
                                       changeTodolistFilter={changeTodolistFilter}
                             />
