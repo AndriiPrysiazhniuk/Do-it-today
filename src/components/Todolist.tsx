@@ -1,6 +1,7 @@
 import {FilterValuesType, TaskType, TodolistType} from "../App.tsx";
 import {AddItemForm} from "./AddItemForm.tsx";
 import {Button} from "./Button.tsx";
+import {EditableSpan} from "./EditableSpan.tsx";
 
 type PropsType = {
     todolists: TodolistType;
@@ -32,7 +33,7 @@ export const Todolist = (props: PropsType) => {
         <div className={'todolist'}>
             <div>
                 <h3>
-                    {title}
+                    <EditableSpan value={title} onChange={()=>{}}/>
                     <Button text={'x'} callback={removeTodolistHandler}/>
                 </h3>
                 <div>
@@ -46,7 +47,7 @@ export const Todolist = (props: PropsType) => {
                                 <ul key={el.id}>
                                     <li>
                                         <input type="checkbox" checked={el.isDone}/>
-                                        <span>{el.title}</span>
+                                        <EditableSpan value={el.title} onChange={()=>{}}/>
                                         <Button text={'x'} callback={removeTaskHandler}/>
                                     </li>
                                 </ul>
