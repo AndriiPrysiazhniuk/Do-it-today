@@ -69,7 +69,8 @@ export const Todolist = (props: PropsType) => {
                             updateTaskStatus(id, el.id, e.currentTarget.checked)
                         }
                         return (
-                            <ListItem key={el.id} sx={{display: 'flex', justifyContent: 'space-between'}}>
+                            <ListItem key={el.id}
+                                      sx={{display: 'flex', paddingLeft: '0',marginLeft:'0', justifyContent: 'space-between'}}>
                                 <div>
                                     <Checkbox onChange={updateTaskStatusHandler} checked={el.isDone}/>
                                     <EditableSpan value={el.title} onChange={updateTaskTitleHandler}/>

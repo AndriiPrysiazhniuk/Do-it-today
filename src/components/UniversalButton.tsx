@@ -1,3 +1,4 @@
+import {SxProps, Theme} from "@mui/material";
 import Button from "@mui/material/Button";
 
 type PropsType = {
@@ -5,6 +6,7 @@ type PropsType = {
     variant?: 'text' | 'outlined' | 'contained'
     size?: 'small' | 'medium' | 'large'
     color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
+    sx?: SxProps<Theme> | undefined
     callback: () => void
 }
 export const UniversalButton = (props: PropsType) => {
@@ -13,13 +15,15 @@ export const UniversalButton = (props: PropsType) => {
         color,
         size,
         variant,
+        sx,
         callback
     } = props
     const onClickHandler = () => {
         callback()
     }
     return (
-        <Button size={size}
+        <Button sx={sx}
+                size={size}
                 variant={variant}
                 color={color}
                 onClick={onClickHandler}>

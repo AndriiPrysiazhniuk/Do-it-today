@@ -1,7 +1,8 @@
 import {ChangeEvent, useState} from "react";
 import {TextField} from "@mui/material";
-import AddBoxIcon from '@mui/icons-material/AddBox'
-import IconButton from '@mui/material/IconButton'
+// import AddBoxIcon from '@mui/icons-material/AddBox'
+// import IconButton from '@mui/material/IconButton'
+import {UniversalButton} from "./UniversalButton.tsx";
 
 type PropsType = {
     onCreateItem: (title: string) => void
@@ -31,10 +32,17 @@ export const AddItemForm = (props: PropsType) => {
                        className={error ? 'error' : ''}
                        value={inputValue}
                        onChange={onChangeHandler}
+                       autoFocus
                        size={'small'}/>
-            <IconButton color={'success'} onClick={createItemHandler}>
-                <AddBoxIcon/>
-            </IconButton>
+            <UniversalButton variant={'outlined'}
+                             sx={{borderRadius: '50%', minWidth: '30px', minHeight: '30px', marginLeft: '15px'}}
+                             size={'small'}
+                             color={'success'}
+                             value={'+'}
+                             callback={createItemHandler}/>
+            {/*<IconButton color={'success'} onClick={createItemHandler}>*/}
+            {/*    <AddBoxIcon/>*/}
+            {/*</IconButton>*/}
         </div>
     );
 };
