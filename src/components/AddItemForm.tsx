@@ -6,7 +6,7 @@ import {TextFieldPropsSizeOverrides} from "@mui/material";
 
 type PropsType = {
     onCreateItem: (title: string) => void
-    size: OverridableStringUnion<'small' | 'medium', TextFieldPropsSizeOverrides>
+    size?: OverridableStringUnion<'small' | 'medium', TextFieldPropsSizeOverrides>
     sx?: SxProps<Theme> | undefined
 }
 export const AddItemForm = (props: PropsType) => {
