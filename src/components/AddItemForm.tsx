@@ -1,4 +1,4 @@
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, KeyboardEvent, useState} from "react";
 import {SxProps, TextField, Theme} from "@mui/material";
 import {UniversalButton} from "./UniversalButton.tsx";
 import {OverridableStringUnion} from "@mui/types";
@@ -26,6 +26,13 @@ export const AddItemForm = (props: PropsType) => {
             setError('Title is required');
         }
     }
+    const onEnterClickHandler = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key=='Enter'){
+            createItemHandler();
+        }else {
+            setError('Title is required');
+        }
+    }
     return (
         <div style={{display: 'flex', alignItems: 'center'}}>
             <TextField label={'Enter a title'}
@@ -34,6 +41,7 @@ export const AddItemForm = (props: PropsType) => {
                        sx={sx}
                        value={inputValue}
                        onChange={onChangeHandler}
+                       onKeyDown={onEnterClickHandler}
                        autoFocus
                        size={size}/>
             <UniversalButton variant={'outlined'}
