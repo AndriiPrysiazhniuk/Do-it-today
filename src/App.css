@@ -10,9 +10,13 @@
 }
 
 .todolist {
-    padding: 30px;
+    margin: 30px;
 }
 
 .error {
     color: red;
+}
+.todolist-item{
+    display: flex;
+    justify-content: space-between;
 }

@@ -1,8 +1,14 @@
 import {FilterValuesType, TaskType, TodolistType} from "../App.tsx";
 import {AddItemForm} from "./AddItemForm.tsx";
-import {Button} from "./Button.tsx";
+import {UniversalButton} from "./UniversalButton.tsx";
 import {EditableSpan} from "./EditableSpan.tsx";
 import {ChangeEvent} from "react";
+import Checkbox from "@mui/material/Checkbox";
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import Box from "@mui/material/Box";
 
 type PropsType = {
     todolists: TodolistType;
@@ -41,42 +47,51 @@ export const Todolist = (props: PropsType) => {
     }
     return (
         <div className={'todolist'}>
-            <div>
+            <div className={'container'}>
                 <h3>
                     <EditableSpan value={title} onChange={changeTodolistTitleHandler}/>
-                    <Button text={'x'} callback={removeTodolistHandler}/>
                 </h3>
-                <div>
-                    <AddItemForm onCreateItem={addTaskHandler}/>
-                    {tasks.length !== 0
-                        ? tasks.map(el => {
-                            const removeTaskHandler = () => {
-                                removeTask(id, el.id)
-                            }
-                            const updateTaskTitleHandler = (title: string) => {
-                                updateTaskTitle(id, el.id, title)
-                            }
-                            const updateTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                                updateTaskStatus(id, el.id, e.currentTarget.checked)
-                            }
-                            return (
-                                <ul key={el.id}>
-                                    <li>
-                                        <input type="checkbox" onChange={updateTaskStatusHandler} checked={el.isDone}/>
-                                        <EditableSpan value={el.title} onChange={updateTaskTitleHandler}/>
-                                        <Button text={'x'} callback={removeTaskHandler}/>
-                                    </li>
-                                </ul>
-                            )
-                        }) :
-                        <h3>Task list is empty - add new task</h3>}
-                    <div>
-                        <Button text={'All'} callback={() => changeTodolistFilterHandler('all')}/>
-                        <Button text={'Active'} callback={() => changeTodolistFilterHandler('active')}/>
-                        <Button text={'Completed'} callback={() => changeTodolistFilterHandler('completed')}/>
-                    </div>
-                </div>
+                <IconButton onClick={removeTodolistHandler}>
+                    <DeleteIcon/>
+                </IconButton>
             </div>
+            <AddItemForm onCreateItem={addTaskHandler}/>
+            <List>
+                {tasks.length !== 0
+                    ? tasks.map(el => {
+                        const removeTaskHandler = () => {
+                            removeTask(id, el.id)
+                        }
+                        const updateTaskTitleHandler = (title: string) => {
+                            updateTaskTitle(id, el.id, title)
+                        }
+                        const updateTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+                            updateTaskStatus(id, el.id, e.currentTarget.checked)
+                        }
+                        return (
+                            <ListItem key={el.id} sx={{display: 'flex', justifyContent: 'space-between'}}>
+                                <div>
+                                    <Checkbox onChange={updateTaskStatusHandler} checked={el.isDone}/>
+                                    <EditableSpan value={el.title} onChange={updateTaskTitleHandler}/>
+                                </div>
+
+                                <IconButton color={'warning'} onClick={removeTaskHandler}>
+                                    <DeleteIcon/>
+                                </IconButton>
+                            </ListItem>
+                        )
+                    }) :
+                    <p>Task list is empty - add new task</p>}
+            </List>
+
+            <Box>
+                <UniversalButton variant={'outlined'} color={'success'} value={'All'}
+                                 callback={() => changeTodolistFilterHandler('all')}/>
+                <UniversalButton variant={'outlined'} color={'primary'} value={'Active'}
+                                 callback={() => changeTodolistFilterHandler('active')}/>
+                <UniversalButton variant={'outlined'} color={'warning'} value={'Completed'}
+                                 callback={() => changeTodolistFilterHandler('completed')}/>
+            </Box>
         </div>
     );
 };
