@@ -23,10 +23,11 @@ export const EditableSpan = (props: PropsType) => {
         setInputValue(event.currentTarget.value)
     }
     return (
-        <>
+        <div style={{display:'flex', alignItems:'center'}}>
             {isEditMode ? (
                 <TextField color={'success'}
-                           variant={'filled'}
+                           variant={'outlined'}
+                           size={'small'}
                            value={inputValue}
                            onChange={changeInputValue}
                            onBlur={turnOffEditMode}
@@ -36,6 +37,6 @@ export const EditableSpan = (props: PropsType) => {
                     {inputValue}
                 </span>
             )}
-        </>
+        </div>
     )
 }

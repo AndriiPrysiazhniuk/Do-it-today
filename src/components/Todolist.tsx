@@ -23,7 +23,7 @@ type PropsType = {
 }
 export const Todolist = (props: PropsType) => {
     const {
-        todolists: {title, id},
+        todolists: {title, id, filter},
         tasks,
         addTask,
         removeTask,
@@ -46,16 +46,20 @@ export const Todolist = (props: PropsType) => {
         updateTodolistTitle(id, title);
     }
     return (
-        <div className={'todolist'}>
+        <div>
             <div className={'container'}>
-                <h3>
-                    <EditableSpan value={title} onChange={changeTodolistTitleHandler}/>
-                </h3>
-                <IconButton onClick={removeTodolistHandler}>
-                    <DeleteIcon/>
-                </IconButton>
+                <div style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+                    <h3>
+                        <EditableSpan value={title} onChange={changeTodolistTitleHandler}/>
+                    </h3>
+                    <IconButton onClick={removeTodolistHandler}>
+                        <DeleteIcon/>
+                    </IconButton>
+                </div>
             </div>
-            <AddItemForm onCreateItem={addTaskHandler}/>
+            <div>
+                <AddItemForm onCreateItem={addTaskHandler}/>
+            </div>
             <List>
                 {tasks.length !== 0
                     ? tasks.map(el => {
@@ -70,8 +74,13 @@ export const Todolist = (props: PropsType) => {
                         }
                         return (
                             <ListItem key={el.id}
-                                      sx={{display: 'flex', paddingLeft: '0',marginLeft:'0', justifyContent: 'space-between'}}>
-                                <div>
+                                      sx={{
+                                          display: 'flex',
+                                          paddingLeft: '0',
+                                          marginLeft: '0',
+                                          justifyContent: 'space-between'
+                                      }}>
+                                <div style={{display: 'flex'}}>
                                     <Checkbox onChange={updateTaskStatusHandler} checked={el.isDone}/>
                                     <EditableSpan value={el.title} onChange={updateTaskTitleHandler}/>
                                 </div>
@@ -86,11 +95,12 @@ export const Todolist = (props: PropsType) => {
             </List>
 
             <Box>
-                <UniversalButton variant={'outlined'} color={'success'} value={'All'}
+                <UniversalButton variant={filter === 'all' ? 'outlined' : 'text'} color={'success'} value={'All'}
                                  callback={() => changeTodolistFilterHandler('all')}/>
-                <UniversalButton variant={'outlined'} color={'primary'} value={'Active'}
+                <UniversalButton variant={filter === 'active' ? 'outlined' : 'text'} color={'primary'} value={'Active'}
                                  callback={() => changeTodolistFilterHandler('active')}/>
-                <UniversalButton variant={'outlined'} color={'warning'} value={'Completed'}
+                <UniversalButton variant={filter === 'completed' ? 'outlined' : 'text'} color={'warning'}
+                                 value={'Completed'}
                                  callback={() => changeTodolistFilterHandler('completed')}/>
             </Box>
         </div>

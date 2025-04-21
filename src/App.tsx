@@ -88,7 +88,7 @@ function App() {
             </AppBar>
             <Container maxWidth="lg">
                 <Grid sx={{mb: '30px'}} container>
-                    <AddItemForm onCreateItem={addTodolist}/>
+                    <AddItemForm size={'medium'} sx={{backgroundColor: 'white', marginLeft:'20px'}} onCreateItem={addTodolist}/>
                 </Grid>
                 <div className={'container'}>
                     {todolists.map(el => {
@@ -107,7 +107,7 @@ function App() {
                         }
                         return (
                             <Grid key={el.id}>
-                                <Paper sx={{p: '0 20px 20px 20px'}}>
+                                <Paper sx={{padding: '0 20px 20px 20px', margin: '20px'}}>
                                     <Todolist todolists={el}
                                               tasks={filteredTasks}
                                               addTask={addTask}
