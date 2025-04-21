@@ -9,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Box from "@mui/material/Box";
-import {getListItemSx} from "../styles/todolists.styles.ts";
+import {getListItemSx} from "../utils/todolists.styles.ts";
 
 type PropsType = {
     todolists: TodolistType;
@@ -75,7 +75,7 @@ export const Todolist = (props: PropsType) => {
                         }
                         return (
                             <ListItem key={el.id}
-                                      sx={() => getListItemSx(el.isDone)}>
+                                      sx={getListItemSx(el.isDone)}>
                                 <div style={{display: 'flex'}}>
                                     <Checkbox onChange={updateTaskStatusHandler} checked={el.isDone}/>
                                     <EditableSpan value={el.title} onChange={updateTaskTitleHandler}/>

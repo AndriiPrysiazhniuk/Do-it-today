@@ -3,6 +3,7 @@ import {SxProps, TextField, Theme} from "@mui/material";
 import {UniversalButton} from "./UniversalButton.tsx";
 import {OverridableStringUnion} from "@mui/types";
 import {TextFieldPropsSizeOverrides} from "@mui/material";
+import {ButtonSx} from "../utils/Button.styles.ts";
 
 type PropsType = {
     onCreateItem: (title: string) => void
@@ -27,9 +28,9 @@ export const AddItemForm = (props: PropsType) => {
         }
     }
     const onEnterClickHandler = (e: KeyboardEvent<HTMLDivElement>) => {
-        if (e.key=='Enter'){
+        if (e.key == 'Enter') {
             createItemHandler();
-        }else {
+        } else {
             setError('Title is required');
         }
     }
@@ -45,20 +46,11 @@ export const AddItemForm = (props: PropsType) => {
                        autoFocus
                        size={size}/>
             <UniversalButton variant={'outlined'}
-                             sx={{
-                                 borderRadius: '50%',
-                                 minWidth: '30px',
-                                 minHeight: '30px',
-                                 marginLeft: '15px',
-                                 backgroundColor: 'white'
-                             }}
+                             sx={ButtonSx()}
                              size={'small'}
                              color={'success'}
                              value={'+'}
                              callback={createItemHandler}/>
-            {/*<IconButton color={'success'} onClick={createItemHandler}>*/}
-            {/*    <AddBoxIcon/>*/}
-            {/*</IconButton>*/}
         </div>
     );
 };

@@ -11,6 +11,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import {containerSx} from "./utils/containerSx.styles.ts";
+import {CustomSwitch} from "./components/Switch.tsx";
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodolistType = {
@@ -80,15 +82,23 @@ function App() {
         <div className={'app'}>
             <AppBar position="static" sx={{backgroundColor: '#538c56', mb: '30px'}}>
                 <Toolbar>
-                    <IconButton color="inherit">
-                        <MenuIcon/>
-                    </IconButton>
-                    <Button color="inherit">Sign in</Button>
+                    <Container maxWidth="lg" sx={containerSx()}>
+                        <IconButton color="inherit">
+                            <MenuIcon/>
+                        </IconButton>
+                        <div>
+                            <CustomSwitch/>
+                            <Button color="inherit">Sign in</Button>
+                            <Button color="inherit">Sign up</Button>
+                            <Button color="inherit">Faq</Button>
+                        </div>
+                    </Container>
                 </Toolbar>
             </AppBar>
             <Container maxWidth="lg">
                 <Grid sx={{mb: '30px'}} container>
-                    <AddItemForm size={'medium'} sx={{backgroundColor: 'white', marginLeft:'20px'}} onCreateItem={addTodolist}/>
+                    <AddItemForm size={'medium'} sx={{backgroundColor: 'white', marginLeft: '20px'}}
+                                 onCreateItem={addTodolist}/>
                 </Grid>
                 <div className={'container'}>
                     {todolists.map(el => {
