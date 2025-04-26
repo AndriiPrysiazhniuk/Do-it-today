@@ -38,7 +38,8 @@ export const AddItemForm = (props: PropsType) => {
         <div style={{display: 'flex', alignItems: 'center'}}>
             <TextField label={'Enter a title'}
                        variant={'outlined'}
-                       helperText={!!error}
+                       helperText={error}
+                       error={!!error}
                        sx={sx}
                        value={inputValue}
                        onChange={onChangeHandler}

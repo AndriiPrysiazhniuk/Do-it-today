@@ -28,12 +28,13 @@ export type TaskType = {
 export type TasksStateType = Record<string, TaskType[]>
 
 function App() {
-
     const todolistId1 = v1()
     const todolistId2 = v1()
+    const todolistId3 = v1()
     const [todolists, setTodolists] = useState<TodolistType[]>([
         {id: todolistId1, title: 'Todolist 1', filter: 'all'},
         {id: todolistId2, title: 'Todolist 2', filter: 'all'},
+        {id: todolistId3, title: 'Todolist 3', filter: 'all'},
     ]);
     const [tasks, setTasks] = useState<TasksStateType>({
         [todolistId1]: [
@@ -46,7 +47,12 @@ function App() {
         [todolistId2]: [
             {id: v1(), title: 'Rest API', isDone: true},
             {id: v1(), title: 'GraphQL', isDone: false},
-        ]
+        ],
+        [todolistId3]: [
+            {id: v1(), title: "JS", isDone: true},
+            {id: v1(), title: "ReactJS", isDone: false},
+            {id: v1(), title: "Rest API", isDone: false},
+        ],
     })
     const removeTask = (id: string, taskId: string) => {
         setTasks({...tasks, [id]: tasks[id].filter(el => el.id !== taskId)})
