@@ -20,7 +20,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case 'tasks/remove_tasks': {
             return {
                 ...state,
-                [action.payload.id]: state[action.payload.id].filter(el => el.id === action.payload.taskId)
+                [action.payload.id]: state[action.payload.id].filter(el => el.id !== action.payload.taskId)
             }
         }
         case "tasks/add_tasks": {
