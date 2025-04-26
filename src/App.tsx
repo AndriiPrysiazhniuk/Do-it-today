@@ -18,8 +18,8 @@ import {
     removeTodolistAC
 } from "./reducers/todolistsReducer.ts";
 import {addTaskAC, removeTaskAC, updateTaskStatusAC, updateTaskTitleAC} from "./reducers/tasksReducer.ts";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "./store/store.ts";
+import {useAppDispatch} from "./common/useAppDispatch.ts";
+import {useAppSelector} from "./common/useAppSelector.ts";
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodolistType = {
@@ -35,9 +35,9 @@ export type TaskType = {
 export type TasksStateType = Record<string, TaskType[]>
 
 function App() {
-    const todolists = useSelector<RootState, TodolistType[]>(state => state.todolists)
-    const tasks = useSelector<RootState, TasksStateType>(state => state.tasks)
-    const dispatch = useDispatch()
+    const todolists = useAppSelector(state => state.todolists)
+    const tasks = useAppSelector(state => state.tasks)
+    const dispatch = useAppDispatch()
 
     const removeTask = (id: string, taskId: string) => {
         dispatch(removeTaskAC(id, taskId))
