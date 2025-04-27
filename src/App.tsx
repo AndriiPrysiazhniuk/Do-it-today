@@ -20,6 +20,8 @@ import {
 import {addTaskAC, removeTaskAC, updateTaskStatusAC, updateTaskTitleAC} from "./reducers/tasksReducer.ts";
 import {useAppDispatch} from "./common/useAppDispatch.ts";
 import {useAppSelector} from "./common/useAppSelector.ts";
+import {selectTodolists} from "./model/todolists-selectors.ts";
+import {selectTasks} from "./model/tasks-selectors.ts";
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodolistType = {
@@ -35,8 +37,8 @@ export type TaskType = {
 export type TasksStateType = Record<string, TaskType[]>
 
 function App() {
-    const todolists = useAppSelector(state => state.todolists)
-    const tasks = useAppSelector(state => state.tasks)
+    const todolists = useAppSelector(selectTodolists)
+    const tasks = useAppSelector(selectTasks)
     const dispatch = useAppDispatch()
 
     const removeTask = (id: string, taskId: string) => {
