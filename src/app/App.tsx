@@ -16,9 +16,15 @@ import {useAppSelector} from "../common/hooks/useAppSelector.ts";
 import {selectTodolists} from "../model/todolists-selectors.ts";
 import {selectTasks} from "../model/tasks-selectors.ts";
 import {addTaskAC, removeTaskAC, updateTaskStatusAC, updateTaskTitleAC} from '../reducers/tasksReducer.ts';
-import {addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from '../reducers/todolistsReducer.ts';
+import {
+    addTodolistAC,
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
+    removeTodolistAC
+} from '../reducers/todolistsReducer.ts';
 import {selectThemeMode} from "./app-selectors.ts";
 import {changeThemeModeAC} from "./app-reducer.ts";
+import {getTheme} from "../common/theme/theme.ts";
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodolistType = {
@@ -37,9 +43,9 @@ function App() {
     const todolists = useAppSelector(selectTodolists)
     const tasks = useAppSelector(selectTasks)
     const dispatch = useAppDispatch()
-const themeMode = useAppSelector(selectThemeMode)
-
-    const changeMode=()=>{
+    const themeMode = useAppSelector(selectThemeMode)
+    const theme = getTheme(themeMode)
+    const changeMode = () => {
         dispatch(changeThemeModeAC({themeMode: themeMode === 'light' ? 'dark' : 'light'}))
     }
     const removeTask = (id: string, taskId: string) => {
