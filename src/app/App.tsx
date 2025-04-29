@@ -1,6 +1,6 @@
 import './App.css'
-import {Todolist} from './components/Todolist'
-import {AddItemForm} from "./components/AddItemForm.tsx";
+import {Todolist} from '../features/todolists/ui/Todolists/Todolist.tsx'
+import {AddItemForm} from "../common/components/AddItemForm/AddItemForm.tsx";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from "@mui/material/Button";
@@ -9,14 +9,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import {containerSx} from "./utils/containerSx.styles.ts";
-import {CustomSwitch} from "./components/Switch.tsx";
-import {useAppDispatch} from "./common/useAppDispatch.ts";
-import {useAppSelector} from "./common/useAppSelector.ts";
-import {selectTodolists} from "./model/todolists-selectors.ts";
-import {selectTasks} from "./model/tasks-selectors.ts";
-import {addTaskAC, removeTaskAC, updateTaskStatusAC, updateTaskTitleAC} from './reducers/tasksReducer.ts';
-import {addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from './reducers/todolistsReducer.ts';
+import {containerSx} from "../utils/containerSx.styles.ts";
+import {CustomSwitch} from "../common/components/Switch/Switch.tsx";
+import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
+import {useAppSelector} from "../common/hooks/useAppSelector.ts";
+import {selectTodolists} from "../model/todolists-selectors.ts";
+import {selectTasks} from "../model/tasks-selectors.ts";
+import {addTaskAC, removeTaskAC, updateTaskStatusAC, updateTaskTitleAC} from '../reducers/tasksReducer.ts';
+import {addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from '../reducers/todolistsReducer.ts';
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodolistType = {

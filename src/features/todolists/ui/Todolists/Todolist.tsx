@@ -1,7 +1,7 @@
-import {FilterValuesType, TaskType, TodolistType} from "../App.tsx";
-import {AddItemForm} from "./AddItemForm.tsx";
-import {UniversalButton} from "./UniversalButton.tsx";
-import {EditableSpan} from "./EditableSpan.tsx";
+import {FilterValuesType, TaskType, TodolistType} from "../../../../app/App.tsx";
+import {AddItemForm} from "../../../../common/components/AddItemForm/AddItemForm.tsx";
+import {NavButton} from "../../../../common/components/NavButton/NavButton.tsx";
+import {EditableSpan} from "../../../../common/components/EditableSpan/EditableSpan.tsx";
 import {ChangeEvent} from "react";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from '@mui/material/IconButton'
@@ -9,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Box from "@mui/material/Box";
-import {getListItemSx} from "../utils/todolists.styles.ts";
+import {getListItemSx} from "../../../../utils/todolists.styles.ts";
 
 type PropsType = {
     todolists: TodolistType;
@@ -91,13 +91,13 @@ export const Todolist = (props: PropsType) => {
             </List>
 
             <Box>
-                <UniversalButton variant={filter === 'all' ? 'outlined' : 'text'} color={'success'} value={'All'}
-                                 callback={() => changeTodolistFilterHandler('all')}/>
-                <UniversalButton variant={filter === 'active' ? 'outlined' : 'text'} color={'primary'} value={'Active'}
-                                 callback={() => changeTodolistFilterHandler('active')}/>
-                <UniversalButton variant={filter === 'completed' ? 'outlined' : 'text'} color={'warning'}
-                                 value={'Completed'}
-                                 callback={() => changeTodolistFilterHandler('completed')}/>
+                <NavButton variant={filter === 'all' ? 'outlined' : 'text'} color={'success'} value={'All'}
+                           callback={() => changeTodolistFilterHandler('all')}/>
+                <NavButton variant={filter === 'active' ? 'outlined' : 'text'} color={'primary'} value={'Active'}
+                           callback={() => changeTodolistFilterHandler('active')}/>
+                <NavButton variant={filter === 'completed' ? 'outlined' : 'text'} color={'warning'}
+                           value={'Completed'}
+                           callback={() => changeTodolistFilterHandler('completed')}/>
             </Box>
         </div>
     );

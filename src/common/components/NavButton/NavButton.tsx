@@ -9,7 +9,7 @@ type PropsType = {
     sx?: SxProps<Theme> | undefined
     callback: () => void
 }
-export const UniversalButton = (props: PropsType) => {
+export const NavButton = (props: PropsType) => {
     const {
         value,
         color,

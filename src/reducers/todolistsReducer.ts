@@ -1,4 +1,4 @@
-import {FilterValuesType, TodolistType} from "../App.tsx";
+import {FilterValuesType, TodolistType} from "../app/App.tsx";
 import {v1} from "uuid";
 import {createAction, createReducer} from "@reduxjs/toolkit";
 

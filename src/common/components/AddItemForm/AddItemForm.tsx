@@ -1,9 +1,9 @@
 import {ChangeEvent, KeyboardEvent, useState} from "react";
 import {SxProps, TextField, Theme} from "@mui/material";
-import {UniversalButton} from "./UniversalButton.tsx";
+import {NavButton} from "../NavButton/NavButton.tsx";
 import {OverridableStringUnion} from "@mui/types";
 import {TextFieldPropsSizeOverrides} from "@mui/material";
-import {ButtonSx} from "../utils/Button.styles.ts";
+import {ButtonSx} from "../../../utils/Button.styles.ts";
 
 type PropsType = {
     onCreateItem: (title: string) => void
@@ -46,12 +46,12 @@ export const AddItemForm = (props: PropsType) => {
                        onKeyDown={onEnterClickHandler}
                        autoFocus
                        size={size}/>
-            <UniversalButton variant={'outlined'}
-                             sx={ButtonSx()}
-                             size={'small'}
-                             color={'success'}
-                             value={'+'}
-                             callback={createItemHandler}/>
+            <NavButton variant={'outlined'}
+                       sx={ButtonSx()}
+                       size={'small'}
+                       color={'success'}
+                       value={'+'}
+                       callback={createItemHandler}/>
         </div>
     );
 };
