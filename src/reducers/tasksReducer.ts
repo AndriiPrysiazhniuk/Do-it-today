@@ -1,97 +1,42 @@
-import {TasksStateType} from "../App.tsx";
+import {TasksStateType, TaskType} from "../App.tsx";
 import {v1} from "uuid";
-import {AddTodolistACType, RemoveTodolistACType} from "./todolistsReducer.ts";
+import {createAction, createReducer} from "@reduxjs/toolkit";
+import {addTodolistAC, removeTodolistAC} from "./todolistsReducer.ts";
 
 const initialState: TasksStateType = {}
-type ActionType = RemoveTaskACType |
-    AddTaskACType |
-    updateTaskTitleACType |
-    updateTaskStatusACType |
-    AddTodolistACType |
-    RemoveTodolistACType
 
-export type RemoveTaskACType = ReturnType<typeof removeTaskAC>
-export type AddTaskACType = ReturnType<typeof addTaskAC>
-export type updateTaskTitleACType = ReturnType<typeof updateTaskTitleAC>
-export type updateTaskStatusACType = ReturnType<typeof updateTaskStatusAC>
+export const removeTaskAC = createAction<{ id: string, taskId: string }>('tasks/remove_tasks')
+export const addTaskAC = createAction('tasks/add_tasks', (id: string, title: string) => {
+    return {payload: {id, taskId: v1(), title}}
+})
+export const updateTaskTitleAC = createAction<{ id: string, taskId: string, title: string }>('tasks/update_task_title')
+export const updateTaskStatusAC = createAction('tasks/update_task_status', (id: string, taskId: string, isDone: boolean) => {
+    return {payload: {id, taskId, isDone}}
+})
 
-export const tasksReducer = (state: TasksStateType = initialState, action: ActionType): TasksStateType => {
-    switch (action.type) {
-        case 'tasks/remove_tasks': {
-            return {
-                ...state,
-                [action.payload.id]: state[action.payload.id].filter(el => el.id !== action.payload.taskId)
-            }
-        }
-        case "tasks/add_tasks": {
-            const newTask = {id: v1(), title: action.payload.title, isDone: false}
-            return {...state, [action.payload.id]: [...state[action.payload.id], newTask]}
-        }
-        case "tasks/update_task_title": {
-            return {
-                ...state, [action.payload.id]: state[action.payload.id].map(el => el.id === action.payload.taskId ? {
-                    ...el,
-                    title: action.payload.title
-                } : el)
-            }
-        }
-        case "tasks/update_task_status": {
-            return {
-                ...state, [action.payload.id]: state[action.payload.id].map(el => el.id === action.payload.taskId ? {
-                    ...el,
-                    isDone: action.payload.taskStatus
-                } : el)
-            }
-        }
-        case "todolist/add_todolist": {
-            return {...state, [action.payload.id]: []}
-        }
-        case "todolist/remove_todolist": {
-            const newState = {...state}
-            delete newState[action.payload.id]
-            return newState
-        }
-        default: {
-            return state
-        }
-    }
-}
-
-export const removeTaskAC = (id: string, taskId: string) => {
-    return {
-        type: 'tasks/remove_tasks',
-        payload: {
-            id,
-            taskId
-        }
-    } as const
-}
-export const addTaskAC = (id: string, title: string) => {
-    return {
-        type: 'tasks/add_tasks',
-        payload: {
-            id,
-            title
-        }
-    } as const
-}
-export const updateTaskTitleAC = (id: string, taskId: string, title: string) => {
-    return {
-        type: 'tasks/update_task_title',
-        payload: {
-            id,
-            taskId,
-            title
-        }
-    } as const
-}
-export const updateTaskStatusAC = (id: string, taskId: string, taskStatus: boolean) => {
-    return {
-        type: 'tasks/update_task_status',
-        payload: {
-            id,
-            taskId,
-            taskStatus
-        }
-    } as const
-}
+export const tasksReducer = createReducer(initialState, (builder) => {
+    builder
+        .addCase(removeTaskAC, (state, action) => {
+            const index = state[action.payload.id].findIndex(el => el.id === action.payload.id)
+            if (index !== 0) state[action.payload.id].splice(index)
+        })
+        .addCase(addTaskAC, (state, action) => {
+            const index = state[action.payload.id].findIndex(el => el.id === action.payload.id)
+            const task: TaskType = {id: action.payload.taskId, title: action.payload.title, isDone: false}
+            if (index !== 0) state[action.payload.id].push(task)
+        })
+        .addCase(updateTaskTitleAC, (state, action) => {
+            const task = state[action.payload.id].find(el => el.id === action.payload.taskId)
+            if (task) task.title = action.payload.title
+        })
+        .addCase(updateTaskStatusAC, (state, action) => {
+            const task = state[action.payload.id].find(el => el.id === action.payload.taskId)
+            if (task) task.isDone = action.payload.isDone
+        })
+        .addCase(addTodolistAC, (state, action) => {
+            state[action.payload.id] = []
+        })
+        .addCase(removeTodolistAC, (state, action) => {
+            delete state[action.payload.id]
+        })
+})

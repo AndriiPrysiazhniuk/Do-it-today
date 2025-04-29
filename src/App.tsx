@@ -1,6 +1,5 @@
 import './App.css'
 import {Todolist} from './components/Todolist'
-import {v1} from "uuid";
 import {AddItemForm} from "./components/AddItemForm.tsx";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,16 +11,12 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import {containerSx} from "./utils/containerSx.styles.ts";
 import {CustomSwitch} from "./components/Switch.tsx";
-import {
-    addTodolistAC,
-    changeTodolistFilterAC, changeTodolistTitleAC,
-    removeTodolistAC
-} from "./reducers/todolistsReducer.ts";
-import {addTaskAC, removeTaskAC, updateTaskStatusAC, updateTaskTitleAC} from "./reducers/tasksReducer.ts";
 import {useAppDispatch} from "./common/useAppDispatch.ts";
 import {useAppSelector} from "./common/useAppSelector.ts";
 import {selectTodolists} from "./model/todolists-selectors.ts";
 import {selectTasks} from "./model/tasks-selectors.ts";
+import {addTaskAC, removeTaskAC, updateTaskStatusAC, updateTaskTitleAC} from './reducers/tasksReducer.ts';
+import {addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from './reducers/todolistsReducer.ts';
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodolistType = {
@@ -42,26 +37,26 @@ function App() {
     const dispatch = useAppDispatch()
 
     const removeTask = (id: string, taskId: string) => {
-        dispatch(removeTaskAC(id, taskId))
+        dispatch(removeTaskAC({id, taskId}))
     }
     const addTask = (id: string, title: string) => {
         dispatch(addTaskAC(id, title))
     }
     const addTodolist = (title: string) => {
-        const id = v1()
-        dispatch(addTodolistAC(id, title));
+        // const id = v1()
+        dispatch(addTodolistAC(title));
     }
     const removeTodolist = (id: string) => {
-        dispatch(removeTodolistAC(id))
+        dispatch(removeTodolistAC({id}))
     }
     const changeTodolistFilter = (id: string, filter: FilterValuesType) => {
-        dispatch(changeTodolistFilterAC(id, filter))
+        dispatch(changeTodolistFilterAC({id, filter}))
     }
-    const updateTodolistTitle = (id: string, todolistTitle: string) => {
-        dispatch(changeTodolistTitleAC(id, todolistTitle))
+    const updateTodolistTitle = (id: string, title: string) => {
+        dispatch(changeTodolistTitleAC({id, title}))
     }
     const updateTaskTitle = (id: string, taskId: string, title: string) => {
-        dispatch(updateTaskTitleAC(id, taskId, title))
+        dispatch(updateTaskTitleAC({id, taskId, title}))
     }
     return (
         <div className={'app'}>
