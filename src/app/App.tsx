@@ -1,16 +1,9 @@
 import './App.css'
 import {Todolist} from '../features/todolists/ui/Todolists/Todolist.tsx'
 import {AddItemForm} from "../common/components/AddItemForm/AddItemForm.tsx";
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Button from "@mui/material/Button";
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import {containerSx} from "../utils/containerSx.styles.ts";
-import {CustomSwitch} from "../common/components/Switch/Switch.tsx";
 import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
 import {useAppSelector} from "../common/hooks/useAppSelector.ts";
 import {selectTodolists} from "../model/todolists-selectors.ts";
@@ -22,9 +15,7 @@ import {
     changeTodolistTitleAC,
     removeTodolistAC
 } from '../reducers/todolistsReducer.ts';
-import {selectThemeMode} from "./app-selectors.ts";
-import {changeThemeModeAC} from "./app-reducer.ts";
-import {getTheme} from "../common/theme/theme.ts";
+import {Header} from "@/common/components/Header/Header.tsx";
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodolistType = {
@@ -43,11 +34,7 @@ function App() {
     const todolists = useAppSelector(selectTodolists)
     const tasks = useAppSelector(selectTasks)
     const dispatch = useAppDispatch()
-    const themeMode = useAppSelector(selectThemeMode)
-    const theme = getTheme(themeMode)
-    const changeMode = () => {
-        dispatch(changeThemeModeAC({themeMode: themeMode === 'light' ? 'dark' : 'light'}))
-    }
+
     const removeTask = (id: string, taskId: string) => {
         dispatch(removeTaskAC({id, taskId}))
     }
@@ -72,21 +59,7 @@ function App() {
     }
     return (
         <div className={'app'}>
-            <AppBar position="static" sx={{backgroundColor: '#538c56', mb: '30px'}}>
-                <Toolbar>
-                    <Container maxWidth="lg" sx={containerSx()}>
-                        <IconButton color="inherit">
-                            <MenuIcon/>
-                        </IconButton>
-                        <div>
-                            <CustomSwitch/>
-                            <Button color="inherit">Sign in</Button>
-                            <Button color="inherit">Sign up</Button>
-                            <Button color="inherit">Faq</Button>
-                        </div>
-                    </Container>
-                </Toolbar>
-            </AppBar>
+          <Header/>
             <Container maxWidth="lg">
                 <Grid sx={{mb: '30px'}} container>
                     <AddItemForm size={'medium'} sx={{backgroundColor: 'white', marginLeft: '20px'}}
@@ -128,3 +101,5 @@ function App() {
 }
 
 export default App
+
+
