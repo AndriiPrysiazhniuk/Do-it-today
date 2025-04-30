@@ -1,11 +1,9 @@
-import {FilterValuesType, TodolistType} from "../app/App.tsx";
-import {v1} from "uuid";
-import {createAction, createReducer} from "@reduxjs/toolkit";
+import {createAction, createReducer, nanoid} from "@reduxjs/toolkit";
 
 const initialState: TodolistType[] = []
 
 export const addTodolistAC = createAction('todolist/add_todolist', (title: string) => {
-    return {payload: {id: v1(), title}}
+    return {payload: {id: nanoid(), title}}
 })
 export const removeTodolistAC = createAction<{ id: string }>('todolist/remove_todolist')
 export const changeTodolistFilterAC = createAction<{
@@ -33,3 +31,10 @@ export const todolistsReducer = createReducer(initialState, (builder) => {
             if (index) state[index].title = action.payload.title
         })
 })
+
+export type FilterValuesType = 'all' | 'active' | 'completed'
+export type TodolistType = {
+    id: string
+    title: string
+    filter: FilterValuesType
+}

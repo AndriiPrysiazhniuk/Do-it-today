@@ -10,4 +10,5 @@ export const appReducer = createReducer(initialState, (builder) => {
             state.themeMode = action.payload.themeMode
         })
 })
+
 export type ThemeMode = 'dark' | 'light'

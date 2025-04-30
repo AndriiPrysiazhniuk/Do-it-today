@@ -2,13 +2,12 @@ import Grid from "@mui/material/Grid";
 import {AddItemForm} from "@/common/components/AddItemForm/AddItemForm.tsx";
 import Container from "@mui/material/Container";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
-import {addTodolistAC} from "@/reducers/todolistsReducer.ts";
-import {Todolists} from "@/Todolists.tsx";
+import {addTodolistAC} from "@/features/todolists/model/todolistsReducer.ts";
+import {Todolists} from "@/features/todolists/ui/Todolists/Todolists.tsx";
 
 export const Main = () => {
     const dispatch = useAppDispatch()
     const addTodolist = (title: string) => {
-        // const id = v1()
         dispatch(addTodolistAC(title));
     }
 
@@ -20,7 +19,6 @@ export const Main = () => {
             </Grid>
             <Grid container spacing={4}>
                <Todolists/>
-
             </Grid>
         </Container>
     )

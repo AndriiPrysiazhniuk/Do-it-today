@@ -7,7 +7,7 @@ type PropsType = {
     size?: 'small' | 'medium' | 'large'
     color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
     sx?: SxProps<Theme> | undefined
-    callback: () => void
+    callback?: () => void
 }
 export const NavButton = (props: PropsType) => {
     const {
@@ -19,7 +19,7 @@ export const NavButton = (props: PropsType) => {
         callback
     } = props
     const onClickHandler = () => {
-        callback()
+        callback?.()
     }
     return (
         <Button sx={sx}

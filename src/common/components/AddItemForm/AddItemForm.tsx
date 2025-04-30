@@ -3,7 +3,7 @@ import {SxProps, TextField, Theme} from "@mui/material";
 import {NavButton} from "../NavButton/NavButton.tsx";
 import {OverridableStringUnion} from "@mui/types";
 import {TextFieldPropsSizeOverrides} from "@mui/material";
-import {ButtonSx} from "../../../utils/Button.styles.ts";
+import {ButtonSx} from "../NavButton/Button.styles.ts";
 
 type PropsType = {
     onCreateItem: (title: string) => void

@@ -1,13 +1,11 @@
-import {TasksStateType, TaskType} from "../app/App.tsx";
-import {v1} from "uuid";
-import {createAction, createReducer} from "@reduxjs/toolkit";
+import {createAction, createReducer, nanoid} from "@reduxjs/toolkit";
 import {addTodolistAC, removeTodolistAC} from "./todolistsReducer.ts";
 
 const initialState: TasksStateType = {}
 
 export const removeTaskAC = createAction<{ id: string, taskId: string }>('tasks/remove_tasks')
 export const addTaskAC = createAction('tasks/add_tasks', (id: string, title: string) => {
-    return {payload: {id, taskId: v1(), title}}
+    return {payload: {id, taskId: nanoid(), title}}
 })
 export const updateTaskTitleAC = createAction<{ id: string, taskId: string, title: string }>('tasks/update_task_title')
 export const updateTaskStatusAC = createAction('tasks/update_task_status', (id: string, taskId: string, isDone: boolean) => {
@@ -40,3 +38,10 @@ export const tasksReducer = createReducer(initialState, (builder) => {
             delete state[action.payload.id]
         })
 })
+
+export type TaskType = {
+    id: string;
+    title: string;
+    isDone: boolean;
+}
+export type TasksStateType = Record<string, TaskType[]>
